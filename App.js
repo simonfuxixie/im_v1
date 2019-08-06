@@ -2,102 +2,48 @@ import React from "react";
 import { Button, View, Text } from "react-native";
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
 
-class HomeScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('Details')}
-        />
-      </View>
-    );
-  }
-}
+import HomeScreen from './src/screens/home';
+import LoginScreen from './src/screens/session/login';
+import RegisterScreen from './src/screens/session/register';
+import ChatRoomScreen from './src/screens/chat_room';
+import NewChat from './src/screens/new_chat';
 
-class DetailsScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-        <Button
-          title="Go to Details... again"
-          onPress={() => this.props.navigation.push('Details')}
-        />
-        <Button
-          title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
-        <Button
-          title="Go back"
-          onPress={() => this.props.navigation.goBack()}
-        />
-      </View>
-    );
-  }
-}
+import Style from './src/components/style';
 
-class SettingsScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>        
-        <Button
-          title="Go to Profile"
-          onPress={() => this.props.navigation.navigate('Profile')}
-        />
-        <Button
-          title="Go back"
-          onPress={() => this.props.navigation.goBack()}
-        />
-      </View>
-    );
+const Main = createBottomTabNavigator(
+  {
+    Home: HomeScreen,
+    NewChat: NewChat
+  },
+  {
+    tabBarOptions: {
+      labelStyle: {fontSize: 15},
+      style: {backgroundColor: Style.color, paddingBottom: 13},
+      inactiveTintColor: 'rgba(255,255,255, 0.7)',
+      activeTintColor: '#fff',
+      indicatorStyle: {backgroundColor: '#fff', height: 4}
+    }
   }
-}
-
-class ProfileScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Profile Screen</Text>        
-        <Button
-          title="Go to Settings"
-          onPress={() => this.props.navigation.navigate('Settings')}
-        />
-        <Button
-          title="Go back"
-          onPress={() => this.props.navigation.goBack()}
-        />
-      </View>
-    );
-  }
-}
-
+);
 
 const HomeStack = createStackNavigator(
   {
-    Home: HomeScreen,
-    Details: DetailsScreen  
+    Login: LoginScreen,
+    Register: RegisterScreen,
+    Main: Main,
+    ChatRoom: ChatRoomScreen
   },
   {
-	initialRouteName: "Home"  
-  }	
-);
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-  Profile: ProfileScreen,
-});
-
-const TabNavigator = createBottomTabNavigator(
-  {
-    Home: HomeStack,
-    Settings: SettingsStack,
+  	navigationOptions: {
+      title: 'Chat',
+      headerStyle: {backgroundColor: Style.color, elevation: 0},
+      headerTintColor: '#fff'
+    }
   }
 );
 
-const AppContainer = createAppContainer(TabNavigator);
+
+const AppContainer = createAppContainer(HomeStack);
 
 export default class App extends React.Component {
   render() {
