@@ -29,7 +29,7 @@ class ChatRoom extends Component {
         console.disableYellowBox = true;
     }
 
-    componentWillMount() {
+    componentDidMount() {
         AsyncStorage.getItem('userId').then(id => {
             fetch(Style.host + '/api/chat/single/' + this.state.conversationId)
                 .then(res => this.setState({userId: id, data: JSON.parse(res._bodyText)}, () => {

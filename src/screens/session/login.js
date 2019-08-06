@@ -26,7 +26,7 @@ class Login extends Component {
         });
     }
 
-    componentWillMount() {
+    componentDidMount() {
         AsyncStorage.getItem('isLogin').then(data => {
             if(data !== null) {
                 let user = JSON.parse(data);
@@ -84,34 +84,34 @@ class Login extends Component {
     }
 
     render() {
-        if(!this.state.isLoading) {
-            return (
-                <Container>
-                    <Content padder>
-                        <Form>
-                            <Item style={Style.input.item} floatingLabel last>
-                                <Label style={Style.input.label}>Email</Label>
-                                <Input value={this.state.mail} keyboardType="email-address" onChangeText={text => this.setState({mail: text})} autoCapitalize='none' autoCorrect={false}/>
-                            </Item>
-                            <Item style={Style.input.item} floatingLabel last>
-                                <Label style={Style.input.label}>Password</Label>
-                                <Input value={this.state.password} onChangeText={text => this.setState({password: text})} autoCorrect={false} secureTextEntry={true}/>
-                            </Item>
-                            <Button onPress={() => this.login()} block style={{backgroundColor: Style.color, marginTop: 45}}>
-                                <Text style={{color: '#fff'}}>Login</Text>
-                            </Button>
-                            <Button onPress={() => this.props.navigation.navigate('Register')} block style={{backgroundColor: Style.color, marginTop: 25}}>
-                                <Text style={{color: '#fff'}}>Register</Text>
-                            </Button>
-                        </Form>
-                    </Content>
-                </Container>
-            );
-        } else {
-            return (
-                <Loading/>
-            );
-        }
+      if(!this.state.isLoading) {
+        return (
+          <Container>
+            <Content padder>
+              <Form>
+                <Item style={Style.input.item} floatingLabel last>
+                  <Label style={Style.input.label}>Email</Label>
+                  <Input value={this.state.mail} keyboardType="email-address" onChangeText={text => this.setState({mail: text})} autoCapitalize='none' autoCorrect={false}/>
+                </Item>
+                <Item style={Style.input.item} floatingLabel last>
+                  <Label style={Style.input.label}>Password</Label>
+                  <Input value={this.state.password} onChangeText={text => this.setState({password: text})} autoCorrect={false} secureTextEntry={true}/>
+                </Item>
+                <Button onPress={() => this.login()} block style={{backgroundColor: Style.color, marginTop: 45}}>
+                  <Text style={{color: '#fff'}}>Login</Text>
+                </Button>
+                <Button onPress={() => this.props.navigation.navigate('Register')} block style={{backgroundColor: Style.color, marginTop: 25}}>
+                  <Text style={{color: '#fff'}}>Register</Text>
+                </Button>
+              </Form>
+            </Content>
+          </Container>
+        );
+      } else {
+        return (
+          <Loading/>
+        );
+      }
     }
 }
 

@@ -5,7 +5,7 @@ import {Container, Left, Body, Text, View, Card, CardItem} from 'native-base';
 import Style from '../components/style';
 import Loading from "../components/loading";
 import SocketIOClient from 'socket.io-client';
-import PushController from '../components/notfication_control';
+import PushController from '../components/notification_control';
 import PushNotification from 'react-native-push-notification';
 
 class Home extends Component {
@@ -43,11 +43,11 @@ class Home extends Component {
         });
     }
 
-    componentWillMount() {
+    componentDidMount() {
         AsyncStorage.getItem('userId').then(id => {
-            this.setState({userId: id}, () => {
-                fetch(Style.host + '/api/chat/' + this.state.userId).then(res => this.setState({data: JSON.parse(res._bodyText)}, ()=> console.log(JSON.parse(res._bodyText)) )).catch(err => alert(err));
-            });
+          this.setState({userId: id}, () => {
+            fetch(Style.host + '/api/chat/' + this.state.userId).then(res => this.setState({data: JSON.parse(res._bodyText)}, ()=> console.log(JSON.parse(res._bodyText)) )).catch(err => alert(err));
+          });
         }).catch(err => alert(err));
         this.setState({isLoading: false});
     }
@@ -62,16 +62,16 @@ class Home extends Component {
         } else {
             return (
                 <FlatList
-                    data = {this.state.data.fullConversations}
-                    keyExtractor = {(item, index) => index}
-                    renderItem = {({item, index}) =>
-                        <Card>
-                            <CardItem onPress={() => this.props.navigation.navigate('ChatRoom', {id: item[0].conversationId})} button style={{height: 66}}>
-                                <Left><Text style={{fontWeight: '700'}}>{item[0].author.profile.name}: </Text></Left>
-                                <Body style={{flex: 3, paddingTop: 10, overflow: 'hidden'}}><Text>{item[0].body}...</Text></Body>
-                            </CardItem>
-                        </Card>
-                    }
+                  data = {this.state.data.fullConversations}
+                  keyExtractor = {(item, index) => index}
+                  renderItem = {({item, index}) =>
+                    <Card>
+                      <CardItem onPress={() => this.props.navigation.navigate('ChatRoom', {id: item[0].conversationId})} button style={{height: 66}}>
+                          <Left><Text style={{fontWeight: '700'}}>{item[0].author.profile.name}: </Text></Left>
+                          <Body style={{flex: 3, paddingTop: 10, overflow: 'hidden'}}><Text>{item[0].body}...</Text></Body>
+                      </CardItem>
+                    </Card>
+                  }
                 />
             );
         }
@@ -79,14 +79,14 @@ class Home extends Component {
 
     render() {
         if(!this.state.isLoading) {
-            return(
-                <Container style={{padding: 8}}>
-                    {this.renderConversations()}
-                    <PushController />
-                </Container>
-            );
+          return(
+            <Container style={{padding: 8}}>
+              {this.renderConversations()}
+              <PushController />
+            </Container>
+          );
         } else {
-            return <Loading/>
+          return <Loading/>
         }
     }
 }

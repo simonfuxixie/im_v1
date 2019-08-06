@@ -23,7 +23,7 @@ class NewChat extends Component {
         this.socket = SocketIOClient(Style.host);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         let userArray = [{_id: 'Select user', profile:{name: 'Select user'}}];
         AsyncStorage.getItem('userId').then(id => {
             fetch(Style.host + '/api/user/get/all').then(res => {

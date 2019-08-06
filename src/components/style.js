@@ -1,7 +1,7 @@
 let color = '#9b59b6';
 //
 export default {
-    host: 'http://10.0.0.114:3000',
+    host: 'http://54.66.155.123:3000',
     color: color,
     input: {
         item: {
